@@ -2,6 +2,9 @@
 # Name: Mega Putra 
 # Dialog window base class
 
+#
+
+
 import tkinter as tk
 from abc import ABC, abstractmethod # abstact base class, a class to derive other classes from
 # should never be instantiated because you dont have a body for it, empty window with buttons
@@ -11,11 +14,11 @@ from abc import ABC, abstractmethod # abstact base class, a class to derive othe
 class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attributes of TopLevel and ABC
     """Base Dialog() class
        - Has standard features of a dialog box: 
-          - a window with [OK] and [Cancel] buttons
+          - window with [OK] and [Cancel] buttons
           - [OK] to commit a transaction, [Cancel] to cancel a transaction
        - Derived dialog boxes can be created with a small amount of customization"""
 
-    def __init__(self, master, title=None, **kwargs):    # Q1. what is kwargs and why would this base class want to use it?
+    def __init__(self, master, title=None, **kwargs):    # Q1. what is kwargs and why would this base class want to use it
         """ set up window with title, body, [OK] and [Cancel] buttons, and controls"""
         
         ABC.__init__(self)
@@ -56,6 +59,9 @@ class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attri
         
         # Q3. Explain where the focus could be. There are 3 possibilities, with a certain precedence: first, second, third
         # List the 3 locations in order.
+        # first:
+        # second:
+        # third: 
 
         self.transient(master)      # Set Dialog to be transient to the master:
                                     # This means: 1. Dialog will minimize if master is minimized 
@@ -97,7 +103,6 @@ class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attri
         
     @abstractmethod
     def validate(self):
-        
         """Return True if all dialog options are valid"""
         raise NotImplementedError        
 
@@ -132,4 +137,8 @@ class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attri
         # need to write this
         # need to end this with self.result = something
         
+        
+# Q1. what is kwargs and why would this base class want to use it        
+# kwargs makes the baseclass accept any arbitrary number of arguments since we do not know how many
+# arguments there are in the derived class.
 # Q4. Name all the callback methods

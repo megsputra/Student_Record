@@ -5,13 +5,18 @@ import tkinter as tk
 from abc import ABC, abstractmethod
 
 class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attributes of TopLevel and ABC
-    """Base Dialog() class
+    """
+    Base Dialog() class
        - Has standard features of a dialog box: 
           - a window with [OK] and [Cancel] buttons
           - [OK] to commit a transaction, [Cancel] to cancel a transaction
-       - Derived dialog boxes can be created with a small amount of customization"""
+       - Derived dialog boxes can be created with a small amount of customization
+    """
 
     def __init__(self, master, title=None, **kwargs):    # Q1. what is kwargs and why would this base class want to use it?
+                                                         # kwargs means Key Word Arguemnts
+                                                         # **kwargs is for unpacking keywords argument into function definition
+                                                         # later on, it can be used as: for k, v in kwargs : dosomething()
         """ set up window with title, body, [OK] and [Cancel] buttons, and controls"""
         
         ABC.__init__(self)
@@ -27,6 +32,7 @@ class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attri
                                         # result has the user input that is the result of the dialog with the user
         if title:
             self.title(title)           # Q2. What does this if statement do? 
+                                        # If title is entered, set the title of self (Dialog) as what users enter
 
         self.v = tk.StringVar()         # Provide a generic StringVar v that can be used to store user input data for the transaction
         self.v.set('ERROR: uninitialized data')    # if a derived class wants to use v, it must set v
@@ -46,7 +52,10 @@ class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attri
         
         # Q3. Explain where the focus could be. There are 3 possibilities, with a certain precedence: first, second, third
         # List the 3 locations in order.
-
+        # first : mainWindow
+        # second: dialog (prompting user to enter ID, name, language)
+        # third: if the langue is not python, prompt message
+        
         self.transient(master)      # Set Dialog to be transient to the master:
                                     # This means: 1. Dialog will minimize if master is minimized 
                                     # 2. Dialog causes no extra icon on taskbar
@@ -56,6 +65,8 @@ class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attri
         self.resizable(False,False) # Don't allow Dialog to be sizeable
 
         self.wait_window(self)      # Stay open until Dialog is closed by the user
+            
+            
     #
     #=====  methods for appearance and behavior of Dialog  =====
     #
@@ -115,3 +126,4 @@ class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attri
                                      # can be a data structure.
 
 # Q4. Name all the callback methods
+# body, buttonbox, validate (definition in inheritance is enfonrced), ok, cancel, return_, apply, 

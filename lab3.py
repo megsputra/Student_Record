@@ -12,11 +12,23 @@ class AddStudentDialog(Dialog):
     '''
     def body(self, bodyFrame):
         print("call body")
-        IDLabel = tk.Label(bodyFrame, text = "Student ID")
-        IDLabel.grid()
+        IDLabel = tk.Label(bodyFrame, text = "Student ID: ")
+        IDLabel.grid(row = 0, column = 0)
         ID = tk.StringVar()
         IDEntry = tk.Entry(bodyFrame, textvariable = ID) 
-        IDEntry.grid()
+        IDEntry.grid(row = 0, column = 1)
+        
+        nameLabel = tk.Label(bodyFrame, text = "Name: ")
+        nameLabel.grid(row = 1, column = 0)
+        name = tk.StringVar()
+        nameEntry = tk.Entry(bodyFrame, textvariable = name) 
+        nameEntry.grid(row = 1, column = 1) 
+        
+        languageLabel = tk.Label(bodyFrame, text = "Favorite Languge: ")
+        languageLabel.grid(row = 2, column = 0)
+        language = tk.StringVar()
+        languageEntry = tk.Entry(bodyFrame, textvariable = language) 
+        languageEntry.grid(row = 2, column = 1)           
     
     def validate(self):
         print("call validate")
@@ -43,8 +55,12 @@ class MainWindow(tk.Tk):
         addLabel = tk.Label(self, text = "Add a Student")
         addLabel.grid()
   
+  
+  
         # create Add Button
-        addButton = tk.Button(self, text = "Click to Add")
+        def addStudent():
+            prompt = AddStudentDialog(self)        
+        addButton = tk.Button(self, text = "Click to Add", command = addStudent)
         addButton.grid(row = 0, column = 1)
           
         # create Student List Label
@@ -53,11 +69,13 @@ class MainWindow(tk.Tk):
         # create the scroll bar
         scrollBar = tk.Scrollbar(self)
         listBox = tk.Listbox(self, height = 3, yscrollcommand = scrollBar.set)
-        listBox.grid(row = 1, column = 2)
+        listBox.grid(row = 1, column = 2, sticky = "ew")
         scrollBar.config(command = listBox.yview)
         scrollBar.grid(row = 1, column = 3)
         # set expansion for column 2
         self.columnconfigure(2, weight = 1)
+        
+
         
         
         #

@@ -1,5 +1,6 @@
 # CIS 41B
 # Dialog window base class
+# Khang Vinh Tran
 
 import tkinter as tk
 from abc import ABC, abstractmethod

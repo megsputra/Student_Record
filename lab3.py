@@ -52,7 +52,7 @@ class AddStudentDialog(Dialog):
             tk.messagebox.showerror("Invalid ID", "Please enter your 3 digit student ID")
             return False
         elif not (self.name.get() and self.language.get()) :
-            tk.messagebox.showerror("Empty Name", "Please enter your name.")
+            tk.messagebox.showerror("Empty Information", "Name and Favorite Languge can't be empty")
             return False
         elif (self.language.get().lower() != "python"):
             #tk.Message(self, text = "Learn Python now!!! 15 weeks can increase your knowledge by 15%").pack()

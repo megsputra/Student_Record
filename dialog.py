@@ -1,5 +1,6 @@
 # CIS 41B
 # Dialog window base class
+# Khang Vinh Tran
 
 import tkinter as tk
 from abc import ABC, abstractmethod
@@ -51,11 +52,9 @@ class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attri
         self.initial_focus.focus_set()          # set the focus
         
         # Q3. Explain where the focus could be. There are 3 possibilities, with a certain precedence: first, second, third
-        # List the 3 locations in order.
-        # first : mainWindow
-        # second: dialog (prompting user to enter ID, name, language)
-        # third: if the langue is not python, prompt message
-        
+        # first: dialog 
+        # second: frame(buttonbox)
+        # third: cancel
         self.transient(master)      # Set Dialog to be transient to the master:
                                     # This means: 1. Dialog will minimize if master is minimized 
                                     # 2. Dialog causes no extra icon on taskbar
@@ -126,4 +125,5 @@ class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attri
                                      # can be a data structure.
 
 # Q4. Name all the callback methods
-# body, buttonbox, validate (definition in inheritance is enfonrced), ok, cancel, return_, apply, 
+# Only functions that are directly called by widgets are callback function
+# ok, cancel, return_

@@ -128,4 +128,4 @@ class Dialog(tk.Toplevel, ABC):    # Multiple inheritance: Dialog gets the attri
 
 # Q4. Name all the callback methods
 # Only functions that are directly called by widgets are callback function
-# body, buttonbox, validate (definition in inheritance is enfonrced), ok, cancel, return_, apply, 
+# ok, cancel, return_

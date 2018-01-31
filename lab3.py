@@ -10,10 +10,17 @@ from tkinter import messagebox
 class AddStudentDialog(Dialog):
     
     '''
+    An inheritance from dialog class
+    Notice: if the inheritance's init only call its parents' init, the inheritance's init is not neccessary
     def __init__(self, title = None, **kwargs):
         super().__init__(title, **kwargs)
     '''
+    
     def body(self, bodyFrame):
+        """
+        the body has all of the widgets
+        their master is bodyFrame
+        """
         IDLabel = tk.Label(bodyFrame, text = "Student ID: ")
         IDLabel.grid(sticky = 'e')
         self.ID = tk.StringVar()
@@ -35,6 +42,12 @@ class AddStudentDialog(Dialog):
         
     
     def validate(self):
+        """
+        check for the three criteria of users inpt
+        return False if there is any violation
+        return True, otherwise
+        shows appropriate error message or info message
+        """
         if (not self.ID.get().isdigit() or len(self.ID.get()) != 3):
             tk.messagebox.showerror("Invalid ID", "Please enter your 3 digit student ID")
             return False
@@ -48,6 +61,10 @@ class AddStudentDialog(Dialog):
             
         
     def apply(self):
+        """
+        Overwrite the parent's apply
+        store user's input into a dictionary
+        """
         self.result = {"ID" : self.ID.get(), "Name" : self.name.get(), "Language" : self.language.get()}
     
  
@@ -60,6 +77,12 @@ class AddStudentDialog(Dialog):
 class MainWindow(tk.Tk):
     def __init__(self):
         super().__init__()
+        """
+        Create a main window with all labels
+        The window has a button "Click to Add", which will invoke addStudent,
+        which in turn will invoke AddStudentDialog, and update the Window's listbox 
+        and show the student count
+        """
         self.title("Lab3")              # set title lab3
         self.resizable(True, False)     # set resizability horizontal only
         
@@ -90,20 +113,26 @@ class MainWindow(tk.Tk):
         
         
         # count and update the number of students
-        countLabel = tk.Label(self, text = "Student Count: ")
+        countLabel = tk.Label(self, text = "Student Count = 0")
         countLabel.grid(row = 1, column = 0) 
 
         
 
 
     def addStudent(self):
+        """
+        invoke AddStudentDialog by create an object
+        If the user input is not "ok", the focus will remain on AddStudentDialog
+        Otherwise, it returns an object and increment student count
+        show student count on the grid
+        """
         # if user input is "ok", it will return an AddStudentDialog object
         prompt = AddStudentDialog(self)
         self.listBox.insert(tk.END, prompt.result)
         
         # update the student count
-        studentCount = tk.Label(self, text = str(self.listBox.size()))
-        studentCount.grid(row = 1, column = 1, sticky = "w")
+        studentCount = tk.Label(self, text = "Student Count = " + str(self.listBox.size()))
+        studentCount.grid(row = 1, column = 0, sticky = "w")
         
         
 def main() :
